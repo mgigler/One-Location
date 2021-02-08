@@ -1,0 +1,133 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mapgl {
+  width: 100px;
+  height: 100px;
+}
+
+.first-column {
+  width: 40%;
+  float: left;
+}
+
+.second-column {
+  width: 40%;
+  float: right;
+}
+
+.toggle-wrapper {
+  margin: 0.5em auto;
+}
+
+.toggle-wrapper label {
+  padding: 0.3em;
+  font-size: 17px;
+  display: block;
+}
+
+.toggleContainer {
+  width: 100%;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+}
+
+.toggleContainer .toggleOption {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  color: #807b77;
+  font-size: 1em;
+}
+
+.toggleContainer .toggleOption.selected {
+  color: #ffffff;
+  cursor: initial;
+}
+
+.toggleContainer .toggle {
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  transition: all 0.4s ease-in-out;
+  background: #009688;
+}
+
+.optionDisabled {
+  background: #e6e6e6;
+  cursor: no-drop !important;
+}
+
+.scrollable {
+  overflow: auto;
+  height: 900px;
+}
+
+#time-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  padding: 20px;
+  font-size: 12px;
+  line-height: 1.5;
+  z-index: 1;
+  background: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.average-availability-bar {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.average-availability-label {
+  position: absolute;
+  top: 15%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+
+.toggle-wrapper {
+font-size: 12px;
+}

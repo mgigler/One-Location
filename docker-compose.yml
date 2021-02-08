@@ -1,0 +1,81 @@
+version: '3'
+
+networks:
+  app:
+
+volumes:
+  postgres-data:
+    driver: local
+  app_ui_node_modules:
+    driver: local
+
+
+services:
+  portainer:
+    image: "portainer/portainer:latest"
+    command: -H unix:///var/run/docker.sock --no-auth
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - ./persistent-data/portainer:/data:rw
+    environment:
+      - CAP_HOST_MANAGEMENT=1
+    ports:
+      - "9201:9000"
+
+  db:
+    image: "mdillon/postgis:latest"
+    restart: always
+    env_file:
+      - db.env
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./app/utils/db_scripts:/docker-entrypoint-initdb.d/
+    networks:
+      - app
+
+  pgadmin:
+    image: "dpage/pgadmin4:latest"
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - db.env
+    volumes:
+      - ./persistent-data/pgadmin:/root/.pgadmin
+    ports:
+      - "9202:80"
+    networks:
+      - app
+
+  rest-api:
+    build: app
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - ./app:/src:rw
+    ports:
+      - 5000:5000
+    expose:
+      - "5000"
+    networks:
+      - app
+
+  app-ui:
+    build:
+      ./app-ui
+    restart: always
+    depends_on:
+      - rest-api
+    volumes:
+      - ./app-ui:/app-ui
+      - app_ui_node_modules:/app-ui/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - app
